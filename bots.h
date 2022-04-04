@@ -14,12 +14,6 @@ class cBotRandom : public cBotBase
 	virtual void ChooseNextGridPosition();
 };
 
-
-class cBotSimple : public cBotBase
-{
-	virtual void ChooseNextGridPosition();
-};
-
 class cBotSimple2 : public cBotBase
 {
 public:
@@ -30,6 +24,6 @@ public:
 private:
 	bool correctPosition = false;
 	float moveDir;
-	float blacklistDir[4];
+	float blacklistDir[8];
 	int arrayPos = 0;
 };

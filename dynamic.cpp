@@ -17,7 +17,7 @@ cDynamic::cDynamic()
 	currentX = currentY = nextX = nextY = 0;
 	moving = false;
 	timerMs = 0;
-	moveTimeMs = 500; //time in miliseconds to move from one location to the next
+	moveTimeMs = 200; //time in miliseconds to move from one location to the next
 	initialised = false;
 }
 

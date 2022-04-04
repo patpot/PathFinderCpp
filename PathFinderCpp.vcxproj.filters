@@ -27,9 +27,6 @@
     <ClCompile Include="botRandom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cBotSimple.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cBotSimple2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

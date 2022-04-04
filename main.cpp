@@ -67,11 +67,11 @@ int main(int argc, char* argv[])
     //======================================================================================
     //Load the map and set target position
     //======================================================================================
-    gLevel.Load("maps/2.txt");
+    gLevel.Load("maps/4.txt");
     gTarget.SetCurrent(30, 20, gLevel);
 
     //======================================================================================
-    //Locals variables for key presses and frame timer
+    //Locals variables fro key presses and frame timer
     //======================================================================================
     SDL_Event event;
     const Uint8* keystate;  
@@ -92,25 +92,25 @@ int main(int argc, char* argv[])
         //======================================================================================
         //Poll events for quit
         //======================================================================================
-		while (SDL_PollEvent(&event))
-		{
-			switch (event.type)
-			{
-			case SDL_QUIT:
-				gQuit = true;
-				break;
+        while(SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+            case SDL_QUIT:
+                gQuit = true;
+                break;
 
-			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym)
-				{
-				case SDLK_ESCAPE:
-				case SDLK_q:
-					gQuit = true;
-					break;
-				}
-				break;
-			}
-		}
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym)
+                {
+                case SDLK_ESCAPE:
+                case SDLK_q:
+                    gQuit = true;
+                    break;
+                }
+                break;
+            }
+        }
         
         //======================================================================================
         //Keyboard input for target control 

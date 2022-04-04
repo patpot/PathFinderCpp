@@ -3,7 +3,7 @@
 #include <stdlib.h>
 using namespace std;
 
-cBotSimple2::cBotSimple2() 
+cBotSimple2::cBotSimple2()
 {
 	CalculateMoveDir();
 }
@@ -15,50 +15,43 @@ void cBotSimple2::ChooseNextGridPosition()
 	int idealX = PositionX() + cos(moveDir * (M_PI / 180));
 	int idealY = PositionY() + sin(moveDir * (M_PI / 180));
 
-	if (IsDirectionBlacklisted(moveDir) || !SetNext(idealX, idealY, gLevel)) {
-		if (!IsDirectionBlacklisted(moveDir)) {
+	if (!IsDirectionBlacklisted(moveDir)) {
+		if (!SetNext(idealX, idealY, gLevel)) {
+			// Movement failed, blacklist this position and move on
 			blacklistDir[arrayPos] = moveDir;
 			arrayPos++;
 		}
-
-		float overrideDir = moveDir;
-		bool validPos = false;
-
-		for (int i = arrayPos; i < 4; i++) {
-			float moveAttemptDir = blacklistDir[i];
-			int targetX = PositionX() + cos(moveAttemptDir * (M_PI / 180));
-			int targetY = PositionY() + sin(moveAttemptDir * (M_PI / 180));
-			validPos = SetNext(targetX, targetY, gLevel);
-			if (validPos)
-				blacklistDir[i] = 2562;
-		}
-		//while (!validPos) {
-		//	overrideDir += 90;
-		//	//if (IsDirectionBlacklisted(overrideDir) && overrideDir != blacklistDir[arrayPos-1])
-		//	//	continue;
-
-		//	int targetX = PositionX() + cos(overrideDir * (M_PI / 180));
-		//	int targetY = PositionY() + sin(overrideDir * (M_PI / 180));
-		//	validPos = SetNext(targetX, targetY, gLevel);
-
-		//	if (!validPos && !IsDirectionBlacklisted(overrideDir)) {
-		//		blacklistDir[arrayPos] = overrideDir;
-		//		arrayPos++;
-		//	}
-		//}
-
-		//if (IsDirectionBlacklisted(overrideDir))
-		//{
-		//	blacklistDir[arrayPos] = 26434;
-		//	arrayPos--;
-		//}
+		else
+			return; // Movement succeeded, no need for other logic
 	}
-	else if (gLevel.isValid(idealX, idealY) && IsDirectionBlacklisted(moveDir))
-	{
-		for (int i = 0; i < 4; i++) 
-			blacklistDir[i] = 1313;
 
-		arrayPos = 0;
+	// Movement either failed this turn or was already blacklisted, either way we need to override its attempted direction
+	if (IsDirectionBlacklisted(moveDir)) {
+		bool validPos = false;
+		// Check if our last blacklisted direction has been freed up
+		float lastBlacklistedDir = blacklistDir[arrayPos - 1];
+		int targetX = PositionX() + cos(lastBlacklistedDir * (M_PI / 180));
+		int targetY = PositionY() + sin(lastBlacklistedDir * (M_PI / 180));
+		validPos = SetNext(targetX, targetY, gLevel);
+		// Great, this direction has been freed up so we can un-blacklist it
+		if (validPos) {
+			blacklistDir[arrayPos] = 1515; // nonsense data
+			arrayPos--;
+		}
+		else {
+			// Unfortunately this direction still doesn't work, use it as a base and loop until we find a freed up direction
+			while (!validPos) {
+				lastBlacklistedDir += 90;
+				targetX = PositionX() + cos(lastBlacklistedDir * (M_PI / 180));
+				targetY = PositionY() + sin(lastBlacklistedDir * (M_PI / 180));
+				validPos = SetNext(targetX, targetY, gLevel);
+				// We found another way we can't go! Blacklist it and move on
+				if (!validPos) {
+					blacklistDir[arrayPos] = lastBlacklistedDir;
+					arrayPos++;
+				}
+			}
+		}
 	}
 }
 
@@ -69,7 +62,7 @@ void cBotSimple2::CalculateMoveDir() {
 	int playerX = gTarget.PositionX();
 	int playerY = gTarget.PositionY();
 
-	if		(ourX < playerX) moveDir = 0;
+	if (ourX < playerX) moveDir = 0;
 	else if (ourX > playerX) moveDir = 180;
 	else if (ourY < playerY) moveDir = 90;
 	else if (ourY > playerY) moveDir = 270;
