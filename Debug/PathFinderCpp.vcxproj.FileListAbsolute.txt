@@ -1,1 +1,2 @@
 D:\Projects\Old Work\PathFinderCpp\Debug\PathFinderCpp.exe
+D:\Projects\PathFinderCpp\Debug\PathFinderCpp.exe

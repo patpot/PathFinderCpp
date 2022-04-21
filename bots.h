@@ -27,3 +27,19 @@ private:
 	float blacklistDir[8];
 	int arrayPos = 0;
 };
+
+class cDijkstra : public cBotBase {
+	public:
+	bool closed[GRIDWIDTH][GRIDHEIGHT]; //whether or not location is closed
+	float cost[GRIDWIDTH][GRIDHEIGHT]; //cost value for each location
+	int linkX[GRIDWIDTH][GRIDHEIGHT]; //link X coord for each location
+	int linkY[GRIDWIDTH][GRIDHEIGHT]; //link Y coord for each location
+	bool inPath[GRIDWIDTH][GRIDHEIGHT]; //whether or not a location is in 
+	
+	bool completed;
+	cDijkstra() { completed = false; }
+	virtual void Build(cBotBase& bot);
+	virtual void ChooseNextGridPosition() { };
+};
+
+extern cDijkstra gDijkstra;

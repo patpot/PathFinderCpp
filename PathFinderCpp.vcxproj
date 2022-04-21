@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="botRandom.cpp" />
     <ClCompile Include="cBotSimple2.cpp" />
+    <ClCompile Include="dijkstra.cpp" />
     <ClCompile Include="dynamic.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
