@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
     //======================================================================================
     //Load the map and set target position
     //======================================================================================
-    gLevel.Load("maps/4.txt");
+    gLevel.Load("maps/1.txt");
     gTarget.SetCurrent(30, 20, gLevel);
 
     //======================================================================================
@@ -81,8 +81,7 @@ int main(int argc, char* argv[])
     //======================================================================================
     // Create Bot
     //======================================================================================
-    cBotBase* pBot = new cDijkstra();
-    pBot->SetCurrent(10, 20, gLevel);
+    gAStar.SetCurrent(13, 20, gLevel);
 
     //======================================================================================
     //Main loop
@@ -128,7 +127,7 @@ int main(int argc, char* argv[])
         {
             if (!p_down)
             {
-                gDijkstra.Build(*pBot);
+                gAStar.Build();
                 p_down = true;
             }
         }
@@ -157,14 +156,14 @@ int main(int argc, char* argv[])
         //Update moving objects
         //======================================================================================
         gTarget.Update(deltaTimeMS);
-        pBot->Update(deltaTimeMS);
+        gAStar.Update(deltaTimeMS);
 
         //======================================================================================
         //Draw the level grid, then target, then bot
         //======================================================================================
         gLevel.Draw();
         gTarget.Draw(targetTexture);
-        pBot->Draw(botTexture);
+        gAStar.Draw(botTexture);
 
         //======================================================================================
         //Finalise render for this frame

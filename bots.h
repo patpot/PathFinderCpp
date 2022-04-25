@@ -8,6 +8,7 @@
 
 #include "botbase.h"
 #include <cmath>
+#include <tuple>
 
 class cBotRandom : public cBotBase
 {
@@ -38,8 +39,20 @@ class cDijkstra : public cBotBase {
 	
 	bool completed;
 	cDijkstra() { completed = false; }
-	virtual void Build(cBotBase& bot);
+	virtual void Build();
 	virtual void ChooseNextGridPosition() { };
 };
 
+class cAStar : public cDijkstra
+{
+public:
+	virtual void Build();
+	virtual void ChooseNextGridPosition();
+
+	std::pair<int, int> path[100];
+	int arrayPos;
+};
+
+
 extern cDijkstra gDijkstra;
+extern cAStar gAStar;
