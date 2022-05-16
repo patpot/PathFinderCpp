@@ -1,14 +1,2 @@
-﻿  botRandom.cpp
-  cBotSimple2.cpp
-D:\Projects\PathFinderCpp\cBotSimple2.cpp(15,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Projects\PathFinderCpp\cBotSimple2.cpp(16,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Projects\PathFinderCpp\cBotSimple2.cpp(33,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Projects\PathFinderCpp\cBotSimple2.cpp(34,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Projects\PathFinderCpp\cBotSimple2.cpp(45,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\Projects\PathFinderCpp\cBotSimple2.cpp(46,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  dijkstra.cpp
-D:\Projects\PathFinderCpp\dijkstra.cpp(105,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  level.cpp
-  main.cpp
-  Generating Code...
+﻿  main.cpp
   PathFinderCpp.vcxproj -> D:\Projects\PathFinderCpp\Debug\PathFinderCpp.exe

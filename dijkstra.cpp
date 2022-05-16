@@ -75,12 +75,18 @@ void cDijkstra::Build() {
 		if ((nextClosedX == PositionX()) && (nextClosedY ==
 			PositionY())) done = true;
 	}
-	
+
 	completed = true;
 }
 cDijkstra gDijkstra;
 
 void cAStar::Build() {
+	int botX = PositionX();
+	int botY = PositionY();
+	// small optimisation, no need to calculate anything if we're on the correct position already
+	if (botX == gTarget.PositionX() && botY == gTarget.PositionY())
+		return;
+
 	for (int i = 0; i < GRIDWIDTH; i++) {
 		for (int j = 0; j < GRIDHEIGHT; j++) {
 			closed[i][j] = false; // node is open
@@ -90,9 +96,6 @@ void cAStar::Build() {
 			inPath[i][j] = false; // node is not in path
 		}
 	}
-
-	int botX = PositionX();
-	int botY = PositionY();
 	cost[botX][botY] = 0;
 
 	// find grid location with the lowest cost
@@ -124,9 +127,8 @@ void cAStar::Build() {
 				if (gLevel.isValid(xPos, yPos) && !closed[xPos][yPos]) {
 					float newCost = cost[lowestX][lowestY] + 1.0f;
 					// change nodes at a diagonal from the centre point lowestX lowestY by 1.4f
-					if (xOffset % 2 == 0 && yOffset % 2 == 0) {
+					if (xOffset % 2 == 0 && yOffset % 2 == 0)
 						newCost += 0.4f;
-					}
 
 					if (newCost < cost[xPos][yPos]) {
 						cost[xPos][yPos] = newCost;
@@ -144,6 +146,8 @@ void cAStar::Build() {
 	bool done = false; //set to true when we are back at the bot position
 	int nextClosedX = gTarget.PositionX(); //start of path
 	int nextClosedY = gTarget.PositionY(); //start of path
+
+	// fill in an array of path values so that we can move the bot
 	while (!done)
 	{
 		path[++arrayPos] = std::make_pair(nextClosedX, nextClosedY);
@@ -152,8 +156,9 @@ void cAStar::Build() {
 		int tmpY = nextClosedY;
 		nextClosedX = linkX[tmpX][tmpY];
 		nextClosedY = linkY[tmpX][tmpY];
-		if ((nextClosedX == PositionX()) && (nextClosedY ==
-			PositionY())) done = true;
+		if ((nextClosedX == PositionX()) &&
+			(nextClosedY == PositionY()))
+			done = true;
 	}
 
 	completed = true;
